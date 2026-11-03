@@ -27,15 +27,25 @@ PREDICT_INTERVAL = 300
 TRAIN_EPOCHS = 2
 TRAIN_BATCH = 1
 
+# Geometria fija; observaciones de trafico validas solo en el ultimo paso SUMO.
+_lane_lengths = {}
+_step_densities = {}
+
 
 def get_density(lane_id):
     """Vehículos por 100 metros de carril; no es un porcentaje de ocupación."""
-    length = traci.lane.getLength(lane_id)
-    return (
+    if lane_id in _step_densities:
+        return _step_densities[lane_id]
+    if lane_id not in _lane_lengths:
+        _lane_lengths[lane_id] = traci.lane.getLength(lane_id)
+    length = _lane_lengths[lane_id]
+    value = (
         len(traci.lane.getLastStepVehicleIDs(lane_id)) / length * 100.0
         if length > 0
         else 0.0
     )
+    _step_densities[lane_id] = value
+    return value
 
 
 def defuzzify_static():
@@ -117,6 +127,7 @@ def run_neurofuzzy(max_steps=None):
         max_steps is None or step < max_steps
     ):
         traci.simulationStep()
+        _step_densities.clear()
         step += 1
         if step % 100 == 0:
             sys.stdout.write(f"\r[NeuroFuzzy] Step {step}")
@@ -141,7 +152,7 @@ def run_neurofuzzy(max_steps=None):
                     trained[tid] = True
             if trained[tid] and step % PREDICT_INTERVAL == 0:
                 wnd = np.array(list(buf)[-WINDOW_SIZE:]).reshape(1, WINDOW_SIZE)
-                pred = float(model.predict(wnd, verbose=0)[0][0])
+                pred = float(model(wnd, training=False).numpy()[0][0])
                 last_pred[tid] = pred
                 sim_ctrls[tid], med_lbs[tid], med_ubs[tid] = (
                     update_membership_functions(pred)
@@ -169,6 +180,7 @@ def run_fuzzy(max_steps=None):
         max_steps is None or step < max_steps
     ):
         traci.simulationStep()
+        _step_densities.clear()
         step += 1
         if step % 100 == 0:
             sys.stdout.write(f"\r[Fuzzy] Step {step}")

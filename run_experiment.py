@@ -109,6 +109,8 @@ def environment(binary: Path) -> dict:
         except importlib.metadata.PackageNotFoundError:
             packages[name] = None
     return {
+        "backend": os.environ.get("EXPERIMENT_BACKEND", "traci"),
+        "libsumo_version": importlib.metadata.version("libsumo") if os.environ.get("EXPERIMENT_BACKEND") == "libsumo" else None,
         "python": platform.python_version(),
         "platform": platform.platform(),
         "sumo": result.stdout.splitlines()[0],
@@ -229,7 +231,11 @@ def worker(job_path: Path) -> int:
         home = Path(job["sumo_home"])
         os.environ["SUMO_HOME"] = str(home)
         sys.path.insert(0, str(home / "tools"))
-        import traci
+        if job["environment"]["backend"] == "libsumo":
+            import libsumo as traci
+            sys.modules["traci"] = traci
+        else:
+            import traci
 
         config = make_configuration(out)
         command = [
@@ -247,6 +253,12 @@ def worker(job_path: Path) -> int:
             # Imports follow child environment configuration, before any model.
             import tensorflow as tf
 
+            gpus = tf.config.list_physical_devices("GPU")
+            if os.environ.get("EXPERIMENT_DEVICE") == "0":
+                assert gpus, "GPU solicitada pero no disponible"
+                for gpu in gpus:
+                    tf.config.experimental.set_memory_growth(gpu, True)
+                print("GPU_EXPERIMENT:", gpus, flush=True)
             tf.config.threading.set_inter_op_parallelism_threads(1)
             tf.config.threading.set_intra_op_parallelism_threads(1)
             tf.keras.utils.set_random_seed(job["seed"])
@@ -435,7 +447,7 @@ def main(argv=None) -> int:
                 "PYTHONHASHSEED": str(job["seed"]),
                 "TF_DETERMINISTIC_OPS": "1",
                 "TF_ENABLE_ONEDNN_OPTS": "0",
-                "CUDA_VISIBLE_DEVICES": "-1",
+                "CUDA_VISIBLE_DEVICES": os.environ.get("EXPERIMENT_DEVICE", "-1"),
                 "TF_CPP_MIN_LOG_LEVEL": "2",
                 "OMP_NUM_THREADS": "1",
                 "MPLBACKEND": "Agg",

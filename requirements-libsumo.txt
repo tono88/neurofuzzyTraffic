@@ -1,0 +1,6 @@
+# CPU reproduction with Python 3.11 on Linux / WSL2.
+-r requirements.txt
+eclipse-sumo==1.16.0
+libsumo==1.16.0
+traci==1.16.0
+sumolib==1.16.0

@@ -1,5 +1,7 @@
 # Bologna SUMO: código, escenario y semillas para reproducción
 
+**Rama de optimización CPU/libsumo:** incorpora las consultas y predicciones optimizadas del experimento del 3 de noviembre de 2026. Consulte [instalación, selección de backend y alcance de la validación](docs/LIBSUMO.md). La versión archivada 1.0.1 corresponde al código original; esta rama no constituye una nueva release.
+
 Paquete de investigación para ejecutar control semafórico **Fuzzy**, **NeuroFuzzy** y una línea base **Estandar** en el escenario Bologna `joined` de SUMO. Incluye el código fuente, los archivos del escenario, **100 semillas explícitas** y un ejecutor que registra cada corrida por separado.
 
 **Autor:** Estuardo Antonio Sandoval Acevedo · [ORCID 0009-0005-2146-6699](https://orcid.org/0009-0005-2146-6699).  
