@@ -1,0 +1,12 @@
+# Reference environment for the documented MLP reproduction, Python 3.11.
+# SUMO 1.16.0 is installed separately. TraCI/sumolib come from SUMO_HOME/tools.
+numpy==1.26.4
+tensorflow==2.15.1
+scikit-fuzzy==0.5.0
+scipy==1.13.1
+networkx==3.3
+packaging==24.2
+pandas==2.2.3
+scikit-learn==1.5.2
+matplotlib==3.9.2
+XlsxWriter==3.2.0

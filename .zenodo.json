@@ -1,0 +1,37 @@
+{
+  "title": "Bologna SUMO: código, escenario y 100 semillas para reproducción de control semafórico",
+  "upload_type": "software",
+  "version": "1.0.1",
+  "creators": [
+    {
+      "name": "Sandoval Acevedo, Estuardo Antonio",
+      "orcid": "0009-0005-2146-6699"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Escuin, David",
+      "orcid": "0000-0003-2062-8092",
+      "type": "Supervisor"
+    }
+  ],
+  "description": "<p>Software de simulación de control semafórico en el escenario Bologna joined de SUMO. Incluye los controladores Fuzzy y NeuroFuzzy con MLP por semáforo, una línea base Estandar, los archivos del escenario y 100 semillas fijas para la reproducción de las corridas.</p><p>El diseño experimental aplica cada semilla a los tres modos de control. El ejecutor configura las semillas de SUMO, Python, NumPy y TensorFlow, utiliza procesos independientes y registra parámetros, versiones, métricas y huellas SHA-256. La documentación incluye instalación, metodología, inventario de archivos, comandos de ejecución y resultados de validación.</p><p>Por motivos de almacenamiento, no se adjuntan los archivos completos de salida de las simulaciones. Estos se generan localmente al ejecutar los comandos indicados.</p><p>El código del proyecto y la documentación se distribuyen bajo MIT. El escenario y las utilidades SUMO conservan sus licencias y avisos correspondientes, detallados en THIRD_PARTY_NOTICES.md.</p>",
+  "keywords": [
+    "SUMO",
+    "Bologna",
+    "reproducibilidad",
+    "control semafórico",
+    "fuzzy",
+    "neurofuzzy",
+    "semillas"
+  ],
+  "license": "mit",
+  "access_right": "open",
+  "language": "spa",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/tono88/neurofuzzyTraffic",
+      "relation": "isSupplementTo"
+    }
+  ]
+}

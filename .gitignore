@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+results/
+results_*/
+smoke*/
+.env
+.env.*
+*.token
+Thumbs.db
+.DS_Store

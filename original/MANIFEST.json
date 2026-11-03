@@ -1,0 +1,214 @@
+{
+  "files": [
+    {
+      "path": "original/sumo_log.txt",
+      "size": 1415725,
+      "sha256": "cc0d0a50c99d14154d28cb666a094c1c1047253b4d85d07780868ffbf40d4a6f"
+    },
+    {
+      "path": "original/tripinfos.xml",
+      "size": 653485,
+      "sha256": "1e05382cdc2d229d0f64c596e0ab09f7551f06d160faf7c0d2e440718e0a777d"
+    },
+    {
+      "path": "original/e1_output.xml",
+      "size": 1399215,
+      "sha256": "fe6d96a48e6a308c5782aacbbcf8338c16a00a78a426739cd1fc863c9ba1c4ff"
+    },
+    {
+      "path": "original/Figure_1.png",
+      "size": 48572,
+      "sha256": "abcef654b699b2e5a9b692a04de3e66a28eddc30be09966acc02b44af92aa9b9"
+    },
+    {
+      "path": "original/Figure_2.png",
+      "size": 43163,
+      "sha256": "aa7084aadf7b4cc34bf1bff4a75bce7896c2f8cd7bfe0490b9e5cd3795e20816"
+    },
+    {
+      "path": "original/Figure_3.png",
+      "size": 46488,
+      "sha256": "7e672d17b9d66489ca9addc1bf9705d546118f03761caa975643c092668291cd"
+    },
+    {
+      "path": "original/Fuzzy_confusion_6860.png",
+      "size": 111549,
+      "sha256": "e0b3c3f720576c826f3ac459b9d7661385a74b7525895bfaa2f84aafc5116364"
+    },
+    {
+      "path": "original/joined.rou.xml",
+      "size": 2388351,
+      "sha256": "e01e6d09c8566d8d5ac85540b187af47cccd33b722a9d2ba67d32f08eb18f9d7"
+    },
+    {
+      "path": "original/joined_bus_stops.add.xml",
+      "size": 5450,
+      "sha256": "9581b0e6be07eb085c5f56a0f4f354d3873b48c9a1cfcef67d60a13457072569"
+    },
+    {
+      "path": "original/joined_buslanes.net - copia.xml",
+      "size": 426423,
+      "sha256": "a220e2e8cc6fe769c66cf0a6e31ef59e62676a6a2c97be944c964ad8791fd92d"
+    },
+    {
+      "path": "original/joined_buslanes.net.xml",
+      "size": 426423,
+      "sha256": "a220e2e8cc6fe769c66cf0a6e31ef59e62676a6a2c97be944c964ad8791fd92d"
+    },
+    {
+      "path": "original/joined_busses.rou.xml",
+      "size": 87586,
+      "sha256": "3652c38183e566d0c574e293fbcc68b36ecf24a083f5f0dc42177e3792590d30"
+    },
+    {
+      "path": "original/joined_detectors.add.xml",
+      "size": 12390,
+      "sha256": "52f599f9c4762f803756b2df17a6af035d95feb0d12083a0e01bf29eb5686b94"
+    },
+    {
+      "path": "original/joined_tls.add.xml",
+      "size": 14989,
+      "sha256": "d5fe2e783d37713ef5402bc45811893f867a6fd56fe9bf99dbaa15a5933720c6"
+    },
+    {
+      "path": "original/joined_vtypes.add.xml",
+      "size": 2820,
+      "sha256": "271a49d0090f05f7b2ecd89673a88baf6d5c28f9a2afe68e96f74cf3fb074d12"
+    },
+    {
+      "path": "original/lane_lengths.csv",
+      "size": 16307,
+      "sha256": "3f916cf51a0c1c514ea58f730f6b4bcb6d27debfb7fa5e6acf544f8e3100dbb7"
+    },
+    {
+      "path": "original/lanes.csv",
+      "size": 2545,
+      "sha256": "676a1dc78c486614d78e447cd24ce0bb1001643ef02565aed3d1829658c64972"
+    },
+    {
+      "path": "original/lanes_con_semaforos.csv",
+      "size": 1464,
+      "sha256": "ffb6f8d5b058ce12e4f1188746516143c1cd03879d7ae698348d6e019a81ee7c"
+    },
+    {
+      "path": "original/listacalles.py",
+      "size": 1083,
+      "sha256": "9f045a619f0e8987d36bd0a5dbb5f33630e96e5ed7a9ab29fd97434c7c758d38"
+    },
+    {
+      "path": "original/listarCallesSemaforo.py",
+      "size": 1275,
+      "sha256": "2f8c0c996ad2b87f92f1d72a96d14c85ce03ba35dc86465ec6edfeb937b1cf39"
+    },
+    {
+      "path": "original/main sin metricas.py",
+      "size": 9548,
+      "sha256": "3746e057722c9f08ce2fb7b72ddfe5d5e363afa2e0f70f96ba02421832c2a46f"
+    },
+    {
+      "path": "original/main.py",
+      "size": 14621,
+      "sha256": "17c1b3821da98db21960049a7f13d254ef76cfe254f11d1a35e244591e6a6bdc"
+    },
+    {
+      "path": "original/mainFuncional.py",
+      "size": 32956,
+      "sha256": "04f973ca67957675fdcebc16c9a152a9c7c86ffd3136faf1e85a6632e991e617"
+    },
+    {
+      "path": "original/mainOLD.py",
+      "size": 8170,
+      "sha256": "0cdccbaa1220059735bb0996185ebf0e91153a3d70a33ae08c9ded70a6d2b429"
+    },
+    {
+      "path": "original/mainV1.py",
+      "size": 11057,
+      "sha256": "00dfd169d87d6389de4d93c2d71c45320bf1da213a49604e12f7d55c6190362d"
+    },
+    {
+      "path": "original/mainv2.py",
+      "size": 32727,
+      "sha256": "19c804d52b8ae882c1001c7b96fb5362760bec89fb4da5c46576ac117fa499dd"
+    },
+    {
+      "path": "original/mainV3.py",
+      "size": 10088,
+      "sha256": "474a086127c917ec4094756f470ab4f946d48fcfe03567c649029c3f34769381"
+    },
+    {
+      "path": "original/mapa.jpg",
+      "size": 69430,
+      "sha256": "29924364e75d67fd3f2b35d8874dc0314e3407d55cedd9be7ea854dad0eb6119"
+    },
+    {
+      "path": "original/NeuroFuzzy_confusion_875.png",
+      "size": 118909,
+      "sha256": "e11e99560346482e4ee13d5712316797f1da62050fa881530ad52ffef4012ba4"
+    },
+    {
+      "path": "original/NeuroFuzzy_confusion_2163.png",
+      "size": 124258,
+      "sha256": "1e21e826cc9305a629419ca61cd7a1b171e6015861a111247421fa084919cde1"
+    },
+    {
+      "path": "original/NeuroFuzzy_confusion_6860.png",
+      "size": 123635,
+      "sha256": "86a31f2147cab75b8179cfedc84aadcb8678e09e8f04916f02f0871aaaf697f2"
+    },
+    {
+      "path": "original/NeuroFuzzy_confusion_7004.png",
+      "size": 122403,
+      "sha256": "ddbd5ed25094830497db1e36e8d43f762cf53b6208cd2be057ee6333ba902051"
+    },
+    {
+      "path": "original/NeuroFuzzy_confusion_9204.png",
+      "size": 124938,
+      "sha256": "70d49a9991ab92ebf90ccc703b9a607734005dc14f81f011a9e7039f25b695af"
+    },
+    {
+      "path": "original/neurofuzzy_model.h5",
+      "size": 45432,
+      "sha256": "bfd2541bf5fea5f5e1740cbb3495bb4a8b2173a0fa0ce8eae0e3b3e739f7ac6b"
+    },
+    {
+      "path": "original/ploteo.py",
+      "size": 4613,
+      "sha256": "c63692cb7310ca6f4bfe2e6aa7f513435f164f32f64a2d01c0d1bd4dcabf6b98"
+    },
+    {
+      "path": "original/ploteo2.py",
+      "size": 7218,
+      "sha256": "300a4896644244b3bfffcae46778c60babc42cf1cd0a5e530759f57e2fb612e7"
+    },
+    {
+      "path": "original/probador.py",
+      "size": 2078,
+      "sha256": "d49f3f7a6d0b6f7c96307789e1dbb75669e3191bf47e7486605e86ea7075fe88"
+    },
+    {
+      "path": "original/randomTrips.py",
+      "size": 41442,
+      "sha256": "6b5847611b6fa534e9f086bf1cbc8cfe1bf6268ba431350a52d7a67873dc6fcc"
+    },
+    {
+      "path": "original/resultados_metricas.xlsx",
+      "size": 7162,
+      "sha256": "8658a952929d180d66025bd74533f6994b230193cd0acc8d1edcf22b06232adf"
+    },
+    {
+      "path": "original/resumen_calles.csv",
+      "size": 364421,
+      "sha256": "429b9847f1d1c1345a2e988b8597c014a3df08c9d8669094cb677001a65a21b7"
+    },
+    {
+      "path": "original/run.sumocfg",
+      "size": 779,
+      "sha256": "beca1a289b7057f5f05d12c9328bed4f7d103f3967d47baa65a2680916c59a3e"
+    },
+    {
+      "path": "original/scaler_y.pkl",
+      "size": 719,
+      "sha256": "3f0c0500f79d0ed1fad6239e27d931d03187547f52ac0fbcd5565afea27bb9e6"
+    }
+  ]
+}
