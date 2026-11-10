@@ -2,7 +2,7 @@
 
 ## Escenario Bologna / iTETRIS
 
-Los archivos `joined*.xml` de `scenarios/bologna/` y sus copias originales forman parte del escenario Bologna de SUMO. El escenario público de referencia está en [DLR-TS/sumo-scenarios/bologna](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna), enlazado desde la [documentación oficial SUMO](https://sumo.dlr.de/docs/Data/Scenarios.html#bologna). La distribución upstream incluye la **Eclipse Public License 2.0**, cuyo texto se conserva en `licenses/SUMO-SCENARIOS-LICENSE.txt`, obtenido de [su archivo LICENSE](https://github.com/DLR-TS/sumo-scenarios/blob/main/LICENSE).
+Los archivos `joined*.xml` de `scenarios/bologna/`, `original/` y `research/sumoneurofun/` forman parte del escenario Bologna de SUMO. El escenario público de referencia está en [DLR-TS/sumo-scenarios/bologna](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna), enlazado desde la [documentación oficial SUMO](https://sumo.dlr.de/docs/Data/Scenarios.html#bologna). La distribución upstream incluye la **Eclipse Public License 2.0**, cuyo texto se conserva en `licenses/SUMO-SCENARIOS-LICENSE.txt`, obtenido de [su archivo LICENSE](https://github.com/DLR-TS/sumo-scenarios/blob/main/LICENSE).
 
 La red indica generación con netconvert `v1_14_1+1311-ab8f708ab1e` en 2022. Los archivos conservan sus comentarios y atributos. La configuración de cada ejecución adapta las rutas y los destinos de salida mediante `make_configuration` en `run_experiment.py`.
 

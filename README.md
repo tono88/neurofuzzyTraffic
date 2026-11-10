@@ -5,16 +5,23 @@ Paquete de investigación para ejecutar control semafórico **Fuzzy**, **NeuroFu
 **Autor:** Estuardo Antonio Sandoval Acevedo · [ORCID 0009-0005-2146-6699](https://orcid.org/0009-0005-2146-6699).  
 **Dirección de tesis:** David Escuin · [ORCID 0000-0003-2062-8092](https://orcid.org/0000-0003-2062-8092).
 
-**Repositorio:** [tono88/neurofuzzyTraffic](https://github.com/tono88/neurofuzzyTraffic). **DOI de la versión 1.0.1:** [10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073).
+**Repositorio** [tono88/neurofuzzyTraffic](https://github.com/tono88/neurofuzzyTraffic) · **Versión 1.0.1 archivada** [10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073).
+
+## Código de la investigación y paquete publicado
+
+El autor identifica `main.py` de la rama `main` de `SUMONeuroFun` como el código utilizado en la investigación. Su copia en [`research/sumoneurofun/`](research/sumoneurofun/) conserva una **LSTM de 50 unidades** para las colas de vehículos. El ejecutor del paquete archivado en la versión **1.0.1** usa una **MLP de 32 unidades ReLU** por semáforo con **50 observaciones de densidad media** de entrada y una salida lineal. Las instrucciones de instalación y ejecución de este README corresponden al paquete con MLP.
+
+La tesis declara **SUMO 1.15 con TraCI** y **1.200 s por escenario**. El registro disponible en el repositorio fuente documenta una corrida con **SUMO 1.16.0** que terminó a los **5.159 s**. La configuración importada carece de un límite de 1.200 s y el programa avanza mientras quedan vehículos esperados. El paquete MLP también utiliza ese criterio por defecto. La [nota de procedencia](docs/PROCEDENCIA_TESIS.md) detalla la evidencia y los límites de la comparación.
 
 ## 1. Qué contiene
 
 | Ruta | Contenido y propósito |
 |---|---|
 | `original/` | Implementaciones de control, utilidades, modelos, resultados y figuras del proyecto. |
+| `research/sumoneurofun/` | `main.py` con LSTM y los insumos del escenario asociados al mismo commit de `SUMONeuroFun`. |
 | `original/MANIFEST.json` | Inventario de archivos con tamaño y huella SHA-256. |
 | `scenarios/bologna/` | Red, demanda privada, autobuses, paradas, detectores, tipos vehiculares, planes semafóricos y configuración originales. |
-| `src/controllers.py` | Funciones de control derivadas de `main.py`, con documentación y salida incremental. |
+| `src/controllers.py` | Funciones de control derivadas de `original/main.py`, con documentación y salida incremental. |
 | `run_experiment.py` | Diseño pareado, semillas fijas, procesos independientes, control de salidas y registro del entorno. |
 | `config/seeds.txt` | Fuente operativa de las 100 semillas, una por línea. |
 | `config/seeds.csv` | Índice de réplica y semilla para inspección o importación. |
@@ -83,7 +90,7 @@ En los ejemplos siguientes, `python` representa el Python del entorno creado; en
 python run_experiment.py --plan
 ```
 
-Muestra **100 semillas × 3 modos = 300 corridas planificadas**. No genera semillas al azar ni inicia SUMO. Para reproducir únicamente los dos modos presentes en el bloque principal de `main.py`:
+Muestra **100 semillas × 3 modos = 300 corridas planificadas**. No genera semillas al azar ni inicia SUMO. Para seleccionar los dos modos presentes en el bloque principal de `original/main.py`, use:
 
 ```bash
 python run_experiment.py --modes Fuzzy NeuroFuzzy --plan

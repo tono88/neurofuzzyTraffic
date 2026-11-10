@@ -1,5 +1,7 @@
 # Metodología de simulación y control
 
+Esta metodología describe el ejecutor del paquete publicado en la versión 1.0.1. La [nota de procedencia](PROCEDENCIA_TESIS.md) compara ese ejecutor con el `main.py` histórico de la investigación y con el protocolo declarado en la tesis.
+
 ## Diseño experimental
 
 El experimento utiliza el escenario Bologna `joined` de SUMO y compara tres condiciones de control: **Estandar**, **Fuzzy** y **NeuroFuzzy**. Cada condición se ejecuta con las mismas 100 semillas de `config/seeds.txt`, para un total de 300 corridas en el diseño completo.
@@ -12,7 +14,7 @@ La densidad se calcula como `100 × número de vehículos / longitud del carril 
 
 El sistema estático utiliza los conjuntos trapezoidales bajo `[0,0,30,50]`, medio `[30,50,70,100]` y alto `[70,100,100,100]`. La salida utiliza los conjuntos triangulares actual `[0,0,0.5]` y siguiente `[0.5,1,1]`. Las reglas son: bajo → actual; medio O alto → siguiente. Una salida mayor o igual a 0.5 solicita el cambio de fase.
 
-## Modelo NeuroFuzzy
+## Modelo NeuroFuzzy del paquete publicado
 
 Cada semáforo tiene una MLP independiente con entrada de 50 observaciones, una capa Dense de 32 unidades ReLU y una salida lineal. Se utiliza Adam con pérdida MSE. El buffer contiene hasta 200 observaciones y el entrenamiento comienza al superar 100 observaciones, con dos épocas y tamaño de lote 1.
 

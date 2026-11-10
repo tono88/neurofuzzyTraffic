@@ -1,10 +1,9 @@
 cff-version: 1.2.0
-message: "Si utiliza este software, cite la versión archivada indicada por este DOI."
+message: "Si utiliza esta revisión, indique el commit consultado. Para el paquete 1.0.1, consulte docs/PUBLICACION_DOI.md."
 type: software
 title: "Bologna SUMO: código, escenario y 100 semillas para reproducción de control semafórico"
-version: 1.0.1
-doi: "10.5281/zenodo.23907073"
-url: "https://zenodo.org/records/23907073"
+version: 1.0.2
+url: "https://github.com/tono88/neurofuzzyTraffic"
 repository-code: "https://github.com/tono88/neurofuzzyTraffic"
 authors:
   - family-names: "Sandoval Acevedo"
@@ -14,7 +13,8 @@ abstract: >-
   Código y escenario Bologna joined de SUMO para simulaciones de control
   semafórico con 100 semillas fijas. Incluye controladores Fuzzy y NeuroFuzzy
   con MLP por semáforo, una línea base Estandar, ejecución pareada, métricas,
-  verificación de integridad y registro del entorno por corrida.
+  verificación de integridad y registro del entorno por corrida. Esta revisión
+  incorpora el código histórico con LSTM de 50 unidades y sus insumos.
 keywords:
   - SUMO
   - Bologna

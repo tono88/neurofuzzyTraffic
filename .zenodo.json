@@ -1,7 +1,7 @@
 {
   "title": "Bologna SUMO: código, escenario y 100 semillas para reproducción de control semafórico",
   "upload_type": "software",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "creators": [
     {
       "name": "Sandoval Acevedo, Estuardo Antonio",
@@ -15,7 +15,7 @@
       "type": "Supervisor"
     }
   ],
-  "description": "<p>Software de simulación de control semafórico en el escenario Bologna joined de SUMO. Incluye los controladores Fuzzy y NeuroFuzzy con MLP por semáforo, una línea base Estandar, los archivos del escenario y 100 semillas fijas para la reproducción de las corridas.</p><p>El diseño experimental aplica cada semilla a los tres modos de control. El ejecutor configura las semillas de SUMO, Python, NumPy y TensorFlow, utiliza procesos independientes y registra parámetros, versiones, métricas y huellas SHA-256. La documentación incluye instalación, metodología, inventario de archivos, comandos de ejecución y resultados de validación.</p><p>Por motivos de almacenamiento, no se adjuntan los archivos completos de salida de las simulaciones. Estos se generan localmente al ejecutar los comandos indicados.</p><p>El código del proyecto y la documentación se distribuyen bajo MIT. El escenario y las utilidades SUMO conservan sus licencias y avisos correspondientes, detallados en THIRD_PARTY_NOTICES.md.</p>",
+  "description": "<p>Software de simulación de control semafórico en el escenario Bologna joined de SUMO. Esta revisión incorpora el main.py histórico que el autor identifica como utilizado en la investigación, junto con la configuración y los insumos del mismo commit de SUMONeuroFun. Ese código emplea una LSTM de 50 unidades para las colas de vehículos.</p><p>Se conserva el ejecutor de la versión 1.0.1, con una MLP de 32 unidades ReLU por semáforo y una ventana de 50 observaciones de densidad media. El paquete incluye los modos Estandar, Fuzzy y NeuroFuzzy y 100 semillas fijas para el diseño pareado.</p><p>La tesis declara SUMO 1.15 con TraCI y un horizonte de 1.200 s. Un registro en el repositorio fuente documenta una corrida con SUMO 1.16.0 que terminó a los 5.159 s. El código importado carece de un límite explícito de 1.200 s. La nota de procedencia distingue estas evidencias y sus límites. Esta revisión no incorpora nuevas simulaciones ni resultados.</p><p>El código del proyecto y la documentación se distribuyen bajo MIT. El escenario y las utilidades SUMO conservan sus licencias y avisos correspondientes, detallados en THIRD_PARTY_NOTICES.md.</p>",
   "keywords": [
     "SUMO",
     "Bologna",

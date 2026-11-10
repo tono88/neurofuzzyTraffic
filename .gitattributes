@@ -7,3 +7,4 @@ config/*.txt text eol=lf
 # Preserve the archive and original scenario bytes for SHA-256 verification.
 original/** -text
 scenarios/** -text
+research/sumoneurofun/** -text

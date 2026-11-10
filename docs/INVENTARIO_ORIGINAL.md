@@ -22,3 +22,5 @@ Los archivos del directorio `original/` se enumeran en `MANIFEST.json` con su ta
 | `lane_lengths.csv`, `lanes.csv`, `lanes_con_semaforos.csv`, `resumen_calles.csv` | Inventarios de carriles y resúmenes. |
 
 La ejecución reproducible utiliza `run_experiment.py`, `src/controllers.py`, `config/seeds.txt` y los archivos de `scenarios/bologna/`.
+
+La importación del `main.py` de `SUMONeuroFun` y sus insumos se conserva en `research/sumoneurofun/`. Su origen y sus diferencias con los archivos de `original/` figuran en la [nota de procedencia](PROCEDENCIA_TESIS.md).
