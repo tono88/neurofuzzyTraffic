@@ -19,6 +19,8 @@ El archivo [`main.py`](research/sumoneurofun/main.py) abre `run.sumocfg` mediant
 
 La tesis declara **SUMO 1.15 con TraCI** y **1.200 s por escenario**. La configuración importada carece de un tiempo final explícito. Un registro de la rama fuente documenta una corrida distinta en duración, de **5.159 s** con **SUMO 1.16.0**, cuyo vínculo con las tablas originales está sin confirmar. La reproducción exacta requiere identificar el protocolo efectivo de las corridas que produjeron esas tablas. [Comparación del protocolo declarado con la evidencia disponible](docs/PROCEDENCIA_TESIS.md#versión-de-sumo-y-horizonte).
 
+El código programa el primer bloque de entrenamiento de la LSTM para el **paso de simulación 3.000**. Para compararlo con el horizonte de **1.200 s**, hay que convertir los pasos a tiempo simulado usando la duración efectiva de cada paso. [Pasos de simulación y segundos simulados](docs/PROCEDENCIA_TESIS.md#pasos-de-simulación-y-segundos-simulados).
+
 ### Consultar el paquete MLP
 
 El paquete 1.0.1 compara los modos Estandar, Fuzzy y NeuroFuzzy. Sus requisitos, comandos, salidas y validación están en la [guía del ejecutor MLP](docs/GUIA_PAQUETE_MLP.md).

@@ -93,6 +93,8 @@ python run_experiment.py --seed 179 --modes Fuzzy NeuroFuzzy --max-steps 305 --o
 
 Una prueba de 305 pasos cruza el entrenamiento inicial de NeuroFuzzy y su primera predicción, prevista en el paso 300. `--max-steps` recorta la corrida y el manifiesto la marca `truncated` si aún quedan vehículos. **Estas pruebas no son resultados completos del experimento.**
 
+`--max-steps` limita el número de pasos de simulación. El manifiesto registra por separado `steps` (pasos) y `simulation_time` (tiempo simulado en segundos).
+
 ### Ejecutar el diseño de referencia del paquete MLP
 
 ```bash
