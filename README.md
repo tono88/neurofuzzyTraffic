@@ -17,7 +17,7 @@ El autor identificó el `main.py` de SUMONeuroFun como el código de la investig
 
 El archivo [`main.py`](research/sumoneurofun/main.py) abre `run.sumocfg` mediante una ruta relativa. La [carpeta del código de la tesis](research/sumoneurofun/) reúne ambos archivos y los insumos del escenario Bologna `joined`. El programa genera una semilla pseudoaleatoria por corrida y la pasa a SUMO con `--seed`. No se dispone de una lista de las semillas de las corridas de la investigación.
 
-La tesis declara SUMO 1.15 con TraCI y un horizonte de 1.200 s. El código importado carece de un corte a ese tiempo y el registro disponible en el repositorio fuente documenta una corrida con SUMO 1.16.0 que terminó a los 5.159 s. La correspondencia entre el código y cada resultado de la tesis queda por corroborar con los registros de las corridas. [Evidencia sobre versión y duración](docs/PROCEDENCIA_TESIS.md#versión-de-sumo-y-horizonte).
+La tesis declara **SUMO 1.15 con TraCI** y **1.200 s por escenario**. La configuración importada carece de un tiempo final explícito. Un registro de la rama fuente documenta una corrida distinta en duración, de **5.159 s** con **SUMO 1.16.0**, cuyo vínculo con las tablas originales está sin confirmar. La reproducción exacta requiere identificar el protocolo efectivo de las corridas que produjeron esas tablas. [Comparación del protocolo declarado con la evidencia disponible](docs/PROCEDENCIA_TESIS.md#versión-de-sumo-y-horizonte).
 
 ### Consultar el paquete MLP
 

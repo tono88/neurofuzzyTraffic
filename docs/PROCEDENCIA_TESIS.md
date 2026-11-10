@@ -16,10 +16,13 @@ El punto de entrada del paquete archivado es [`run_experiment.py`](../run_experi
 
 ## Versión de SUMO y horizonte
 
-- **Protocolo declarado en la tesis.** La sección 4.4.3 indica SUMO v1.15 con TraCI y 1.200 segundos por escenario. La denominación oficial de esa versión es **1.15.0**. La lectura «0.15» carece de respaldo en las fuentes inspeccionadas. [Historial oficial de SUMO 1.15.0](https://sumo.dlr.de/docs/ChangeLog/Changes_in_2022_releases.html#version_1150_08112022).
-- **Registro en la rama fuente.** `sumo_log.txt` del commit de origen identifica una corrida con SUMO **1.16.0** que terminó en el tiempo simulado **5.159,00 s**. El registro por sí solo no vincula esa corrida con las tablas de la tesis. [Registro de ejecución de origen](https://github.com/tono88/SUMONeuroFun/blob/57bf0d2629eca652f0238d751742a9a61d35b634/sumo_log.txt).
-- **Paquete publicado.** La [validación archivada](../validation/REPORT.md) corresponde a SUMO **1.16.0**. La configuración tampoco establece un fin a los **1.200 s**.
+| Parámetro | Protocolo declarado en la tesis (§ 4.4.3) | Código y configuración importados | Registro disponible en la rama fuente |
+|---|---|---|---|
+| Horizonte | **1.200 s por escenario** | `run.sumocfg` carece de un tiempo final explícito. El bucle de `main.py` avanza mientras SUMO informa vehículos esperados. | Una corrida terminó a los **5.159 s de tiempo simulado**. |
+| Versión de SUMO | **v1.15 con TraCI** | `main.py` localiza el ejecutable en el entorno y la configuración carece de una versión fijada. | Esa corrida se inició con **SUMO 1.16.0**. |
+
+La denominación oficial de la versión declarada en la tesis es **1.15.0**. El registro documenta el entorno y la duración de una corrida concreta. Su vínculo con las tablas originales está sin confirmar. La validación del paquete MLP archivado es evidencia de otro alcance y documenta SUMO **1.16.0** para ese paquete. [Historial de SUMO 1.15.0](https://sumo.dlr.de/docs/ChangeLog/Changes_in_2022_releases.html#version_1150_08112022) · [Registro de origen](https://github.com/tono88/SUMONeuroFun/blob/57bf0d2629eca652f0238d751742a9a61d35b634/sumo_log.txt#L8-L15) · [Validación del paquete MLP](../validation/REPORT.md).
 
 En el código importado, el primer bloque de entrenamiento y predicción de la LSTM está programado para el paso 3.000. Si el paso dura un segundo y se aplica el corte de 1.200 s declarado en la tesis, la corrida termina antes de alcanzar ese bloque. [Condición de entrenamiento en el código importado](../research/sumoneurofun/main.py#L486-L499).
 
-La revisión se limitó a inspeccionar archivos y verificar la copia. La identificación del código proviene del autor. Queda por corroborar con registros de las corridas qué versión de SUMO, horizonte y configuración produjeron cada resultado de la tesis. Esta revisión no aporta resultados de simulación nuevos.
+Estas diferencias, por sí solas, son insuficientes para juzgar la validez de los resultados de la tesis. Antes de afirmar una reproducción exacta, hace falta vincular las tablas con los archivos de salida originales e identificar el protocolo efectivo de esas corridas, incluida la revisión del código, la versión de SUMO, la configuración y el horizonte usado para calcular las métricas. La revisión se limitó a inspeccionar los archivos disponibles.
