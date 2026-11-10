@@ -1,10 +1,10 @@
 # v1.0.1 — Bologna SUMO
 
-Código, escenario y 100 semillas para la reproducción de simulaciones de control semafórico.
+Código y escenario del paquete MLP para simulaciones de control semafórico.
 
 - Controladores Fuzzy y NeuroFuzzy con MLP por semáforo, y línea base Estandar.
 - Escenario Bologna `joined`: red, demanda, autobuses, paradas, detectores y planes semafóricos.
-- Diseño pareado de 100 semillas por tres modos de control.
+- Diseño pareado en tres modos de control con la configuración de referencia del ejecutor. Las semillas de las corridas de la investigación se generaron de forma pseudoaleatoria y no se dispone de su lista.
 - Semillas de SUMO, Python, NumPy y TensorFlow, con procesos independientes por corrida.
 - Registro incremental de observaciones, métricas y manifiestos SHA-256.
 - README, metodología, inventario de archivos y pruebas automatizadas.

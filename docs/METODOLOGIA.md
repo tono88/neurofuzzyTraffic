@@ -4,7 +4,7 @@ Esta metodología describe el ejecutor del paquete publicado en la versión 1.0.
 
 ## Diseño experimental
 
-El experimento utiliza el escenario Bologna `joined` de SUMO y compara tres condiciones de control: **Estandar**, **Fuzzy** y **NeuroFuzzy**. Cada condición se ejecuta con las mismas 100 semillas de `config/seeds.txt`, para un total de 300 corridas en el diseño completo.
+El paquete MLP utiliza el escenario Bologna `joined` de SUMO y compara tres condiciones de control: **Estandar**, **Fuzzy** y **NeuroFuzzy**. Su ejecutor reutiliza las semillas de su configuración de referencia entre los modos para una comparación pareada. En el código de la investigación, la semilla se genera de forma pseudoaleatoria al iniciar cada corrida. No se dispone de una lista de esas semillas históricas.
 
 El ejecutor principal es `run_experiment.py`. Los controladores Fuzzy y NeuroFuzzy se implementan en `src/controllers.py`; `original/main.py` contiene su implementación de referencia. El modo Estandar utiliza los planes semafóricos definidos en los archivos del escenario.
 
@@ -26,7 +26,7 @@ El callback `EarlyStopping(patience=1)` utiliza el monitor predeterminado `val_l
 
 | Elemento | Implementación |
 |---|---|
-| Semillas | Lista fija de 100 semillas; misma semilla para SUMO, Python, NumPy y TensorFlow. |
+| Semillas | El ejecutor MLP aplica la misma semilla a SUMO, Python, NumPy y TensorFlow dentro de cada corrida. |
 | Procesos | Un proceso independiente por modo y semilla. |
 | Entorno neuronal | CPU, un hilo TensorFlow y operaciones deterministas. |
 | Identificación de carriles | NeuroFuzzy conserva la primera aparición de cada carril controlado; Fuzzy recorre la lista de TraCI. |

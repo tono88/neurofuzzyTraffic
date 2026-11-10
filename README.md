@@ -1,6 +1,6 @@
-# Bologna SUMO: código, escenario y semillas para reproducción
+# Bologna SUMO — código y escenario de control semafórico
 
-Paquete de investigación para ejecutar control semafórico **Fuzzy**, **NeuroFuzzy** y una línea base **Estandar** en el escenario Bologna `joined` de SUMO. Incluye el código fuente, los archivos del escenario, **100 semillas explícitas** y un ejecutor que registra cada corrida por separado.
+Paquete de simulación para comparar control semafórico **Fuzzy**, **NeuroFuzzy** y una línea base **Estandar** en el escenario Bologna `joined` de SUMO. Incluye el código fuente, los archivos del escenario y un ejecutor que registra cada corrida por separado.
 
 **Autor:** Estuardo Antonio Sandoval Acevedo · [ORCID 0009-0005-2146-6699](https://orcid.org/0009-0005-2146-6699).  
 **Dirección de tesis:** David Escuin · [ORCID 0000-0003-2062-8092](https://orcid.org/0000-0003-2062-8092).
@@ -13,6 +13,8 @@ El autor identifica `main.py` de la rama `main` de `SUMONeuroFun` como el códig
 
 La tesis declara **SUMO 1.15 con TraCI** y **1.200 s por escenario**. El registro disponible en el repositorio fuente documenta una corrida con **SUMO 1.16.0** que terminó a los **5.159 s**. La configuración importada carece de un límite de 1.200 s y el programa avanza mientras quedan vehículos esperados. El paquete MLP también utiliza ese criterio por defecto. La [nota de procedencia](docs/PROCEDENCIA_TESIS.md) detalla la evidencia y los límites de la comparación.
 
+El código utilizado en la investigación genera en cada corrida una **semilla pseudoaleatoria** entre 1 y 10.000 mediante `random.randint(1, 10000)` y la pasa a SUMO con `--seed`. No se dispone de una lista de las semillas de las corridas de la investigación.
+
 ## 1. Qué contiene
 
 | Ruta | Contenido y propósito |
@@ -22,9 +24,7 @@ La tesis declara **SUMO 1.15 con TraCI** y **1.200 s por escenario**. El registr
 | `original/MANIFEST.json` | Inventario de archivos con tamaño y huella SHA-256. |
 | `scenarios/bologna/` | Red, demanda privada, autobuses, paradas, detectores, tipos vehiculares, planes semafóricos y configuración originales. |
 | `src/controllers.py` | Funciones de control derivadas de `original/main.py`, con documentación y salida incremental. |
-| `run_experiment.py` | Diseño pareado, semillas fijas, procesos independientes, control de salidas y registro del entorno. |
-| `config/seeds.txt` | Fuente operativa de las 100 semillas, una por línea. |
-| `config/seeds.csv` | Índice de réplica y semilla para inspección o importación. |
+| `run_experiment.py` | Ejecutor del paquete MLP con diseño pareado, procesos independientes y registro del entorno. |
 | `scripts/verify_package.py` | Verificación de originales, escenario y concordancia TXT/CSV. |
 | `scripts/summarize_results.py` | Resumen de movilidad: una fila por modo y semilla. |
 | `tests/` | Casos de validación para predicciones ausentes, métricas, duplicados y aislamiento de archivos. |
@@ -80,7 +80,7 @@ export SUMO_HOME=/ruta/a/sumo
 
 Para ejecutar solo `Estandar`, planificar o verificar archivos basta la biblioteca estándar de Python y la instalación de SUMO. Los dos modos difusos usan el entorno científico completo.
 
-## 4. Reproducción paso a paso
+## 4. Uso del ejecutor MLP
 
 En los ejemplos siguientes, `python` representa el Python del entorno creado; en Windows puede sustituirse por `& .\.venv\Scripts\python.exe`.
 
@@ -90,13 +90,13 @@ En los ejemplos siguientes, `python` representa el Python del entorno creado; en
 python run_experiment.py --plan
 ```
 
-Muestra **100 semillas × 3 modos = 300 corridas planificadas**. No genera semillas al azar ni inicia SUMO. Para seleccionar los dos modos presentes en el bloque principal de `original/main.py`, use:
+Muestra las corridas previstas por el ejecutor MLP para su configuración de referencia, sin iniciar SUMO. Para seleccionar los dos modos presentes en el bloque principal de `original/main.py`, use:
 
 ```bash
 python run_experiment.py --modes Fuzzy NeuroFuzzy --plan
 ```
 
-Esto planifica **200 corridas**. La línea base Estandar se incorpora para comparar movilidad y se identifica como una adición del paquete.
+La línea base Estandar se incorpora al paquete MLP para comparar movilidad.
 
 ### Prueba corta antes del experimento
 
@@ -107,7 +107,7 @@ python run_experiment.py --seed 179 --modes Fuzzy NeuroFuzzy --max-steps 305 --o
 
 Una prueba de 305 pasos cruza el entrenamiento inicial de NeuroFuzzy y su primera predicción, prevista en el paso 300. `--max-steps` recorta la corrida y el manifiesto la marca `truncated` si aún quedan vehículos. **Estas pruebas no son resultados completos del experimento.**
 
-### Ejecutar las 100 semillas
+### Ejecutar el diseño de referencia del paquete MLP
 
 ```bash
 python run_experiment.py --output results
@@ -175,60 +175,26 @@ results/
 
 Las métricas de Fuzzy basadas en `y_pred=y_true` describen una identidad y **no demuestran precisión predictiva**. NeuroFuzzy contrasta una predicción media del semáforo con densidades actuales de carril; no es por sí solo una evaluación prospectiva a un horizonte común. Consulte [METODOLOGIA.md](docs/METODOLOGIA.md) antes de interpretar RMSE, MAE, MAPE, R² o matrices de confusión.
 
-## 6. Las 100 semillas
-
-El experimento utiliza las siguientes **100 semillas fijas**. La lista se distribuye en `config/seeds.txt` y `config/seeds.csv`, en el mismo orden de la tabla. Cada semilla se aplica a los tres modos de control para realizar la comparación pareada.
-
-| Réplica | Semilla | Réplica | Semilla | Réplica | Semilla | Réplica | Semilla |
-|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 179 | 26 | 3046 | 51 | 5448 | 76 | 7539 |
-| 2 | 195 | 27 | 3410 | 52 | 5526 | 77 | 7604 |
-| 3 | 323 | 28 | 3427 | 53 | 5546 | 78 | 7715 |
-| 4 | 452 | 29 | 3438 | 54 | 5552 | 79 | 7820 |
-| 5 | 543 | 30 | 3652 | 55 | 5773 | 80 | 8427 |
-| 6 | 620 | 31 | 3776 | 56 | 5781 | 81 | 8501 |
-| 7 | 775 | 32 | 3922 | 57 | 5783 | 82 | 8533 |
-| 8 | 936 | 33 | 4017 | 58 | 5862 | 83 | 8739 |
-| 9 | 1106 | 34 | 4102 | 59 | 5898 | 84 | 8869 |
-| 10 | 1228 | 35 | 4122 | 60 | 5922 | 85 | 8878 |
-| 11 | 1395 | 36 | 4295 | 61 | 5993 | 86 | 8973 |
-| 12 | 1560 | 37 | 4308 | 62 | 6211 | 87 | 8988 |
-| 13 | 1794 | 38 | 4318 | 63 | 6241 | 88 | 9017 |
-| 14 | 1948 | 39 | 4443 | 64 | 6256 | 89 | 9035 |
-| 15 | 2035 | 40 | 4512 | 65 | 6412 | 90 | 9086 |
-| 16 | 2078 | 41 | 4519 | 66 | 6543 | 91 | 9126 |
-| 17 | 2111 | 42 | 4585 | 67 | 6746 | 92 | 9453 |
-| 18 | 2187 | 43 | 4623 | 68 | 6809 | 93 | 9457 |
-| 19 | 2264 | 44 | 4700 | 69 | 6848 | 94 | 9458 |
-| 20 | 2565 | 45 | 4783 | 70 | 7062 | 95 | 9490 |
-| 21 | 2646 | 46 | 4784 | 71 | 7228 | 96 | 9552 |
-| 22 | 2651 | 47 | 5000 | 72 | 7313 | 97 | 9568 |
-| 23 | 2652 | 48 | 5245 | 73 | 7352 | 98 | 9667 |
-| 24 | 2695 | 49 | 5247 | 74 | 7416 | 99 | 9917 |
-| 25 | 2727 | 50 | 5348 | 75 | 7508 | 100 | 9977 |
-
-## 7. Verificación
+## 6. Verificación
 
 ```bash
 python scripts/verify_package.py
 python -m unittest discover -s tests -v
 ```
 
-La automatización de GitHub verifica la integridad del paquete, las pruebas del ejecutor y el diseño de 300 corridas. Los resultados de las pruebas de ejecución se presentan en [validation/REPORT.md](validation/REPORT.md).
+La automatización de GitHub verifica la integridad del paquete, las pruebas del ejecutor y la planificación del diseño de referencia. Los resultados de las pruebas de ejecución se presentan en [validation/REPORT.md](validation/REPORT.md).
 
-## 8. Citar y obtener el DOI
+## 7. Citar y obtener el DOI
 
 La versión **1.0.1** está archivada y publicada en [Zenodo](https://zenodo.org/records/23907073). Su DOI de versión es **[10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073)**. Los metadatos de citación están en `CITATION.cff` y `.zenodo.json`.
 
-> Sandoval Acevedo, E. A. (2026). *Bologna SUMO: código, escenario y 100 semillas para reproducción de control semafórico* (versión 1.0.1) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23907073
-
 Para citar esta distribución se utiliza el DOI de versión. El DOI de concepto [10.5281/zenodo.23907072](https://doi.org/10.5281/zenodo.23907072) agrupa las versiones del software. Los enlaces del repositorio y del depósito están registrados en [PUBLICATION.json](PUBLICATION.json).
 
-## 9. Licencias y procedencia
+## 8. Licencias y procedencia
 
 El código del proyecto y su documentación se distribuyen bajo [MIT](LICENSE). Los archivos de terceros mantienen sus condiciones: escenario SUMO bajo los términos de su distribución de origen y `original/randomTrips.py` con su aviso **EPL-2.0 OR GPL-2.0-or-later**. Se incluyen los textos oficiales disponibles en `licenses/` y el detalle en [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). La licencia MIT no cambia los derechos de los componentes de terceros ni los de las dependencias instaladas por separado.
 
-## 10. Referencias del escenario y del entorno
+## 9. Referencias del escenario y del entorno
 
 - Bieker, L., Krajzewicz, D., Morra, A., Michelacci, C. y Cartolano, F. (2014). *Traffic simulation for all: a real world traffic scenario from the city of Bologna*. SUMO2014, pp. 19–26. [Registro DLR y escenario](https://sumo.dlr.de/docs/Data/Scenarios.html#bologna).
 - [SUMO: control de aleatoriedad mediante `--seed`](https://sumo.dlr.de/docs/Simulation/Randomness.html).

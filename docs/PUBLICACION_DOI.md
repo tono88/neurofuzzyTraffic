@@ -12,7 +12,7 @@
 
 ## Referencia
 
-Sandoval Acevedo, E. A. (2026). *Bologna SUMO: código, escenario y 100 semillas para reproducción de control semafórico* (versión 1.0.1) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23907073
+La ficha de Zenodo proporciona la cita de la [versión 1.0.1](https://doi.org/10.5281/zenodo.23907073).
 
 El DOI de versión identifica el paquete con el ejecutor MLP. El DOI de concepto agrupa las versiones del software.
 
