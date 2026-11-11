@@ -4,7 +4,7 @@
 
 **Dirección de tesis** David Escuin · [ORCID 0000-0003-2062-8092](https://orcid.org/0000-0003-2062-8092).
 
-La rama `main` contiene el código histórico LSTM del escenario Bologna `joined`, con el número de corridas configurado en **100** según la confirmación del autor. El entorno de la investigación confirmado por el autor es **SUMO 1.15.0 con TraCI**. La revisión del software es **1.0.2**, pendiente de archivo como nueva versión en Zenodo.
+La rama `main` contiene el código histórico LSTM del escenario Bologna `joined`, con el número de corridas configurado en **100** según la confirmación del autor. El entorno de la investigación confirmado por el autor es **SUMO 1.15.0 con TraCI**. La revisión del software es **1.0.2**. Su DOI de versión es [10.5281/zenodo.24141655](https://doi.org/10.5281/zenodo.24141655).
 
 ## Código y parámetros
 
@@ -44,7 +44,7 @@ El contador `steps` aumenta una vez por llamada a `traci.simulationStep()`. Su c
 
 El paquete MLP con su configuración de comparación entre modos se consulta en la [versión archivada v1.0.1](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.1) y en su [DOI 10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073).
 
-Para citar el código LSTM de esta revisión, indique el commit de GitHub consultado. El estado del archivo y los identificadores de cada versión figuran en [`PUBLICATION.json`](PUBLICATION.json) y en la [guía de publicación](docs/PUBLICACION_DOI.md).
+Para citar el código LSTM de esta revisión, utilice el [DOI de la versión 1.0.2](https://doi.org/10.5281/zenodo.24141655). El código se identifica en la [etiqueta v1.0.2](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.2). Los identificadores de cada versión figuran en [`PUBLICATION.json`](PUBLICATION.json) y en la [guía de publicación](docs/PUBLICACION_DOI.md).
 
 ## Licencias
 

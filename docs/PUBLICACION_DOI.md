@@ -2,9 +2,9 @@
 
 ## Código LSTM de la rama main
 
-La revisión del software **1.0.2** contiene el código LSTM histórico y sus insumos, con el número de corridas ajustado a 100 según la confirmación del autor. El entorno de la investigación confirmado es SUMO 1.15.0 con TraCI. Esta revisión está pendiente de archivo como nueva versión en Zenodo.
+La revisión del software **1.0.2** contiene el código LSTM histórico y sus insumos, con el número de corridas ajustado a 100 según la confirmación del autor. El entorno de la investigación confirmado es SUMO 1.15.0 con TraCI. El DOI de esta versión es [10.5281/zenodo.24141655](https://doi.org/10.5281/zenodo.24141655). El código se identifica mediante la [etiqueta v1.0.2](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.2).
 
-Para referenciarla, cite el repositorio y el commit de GitHub consultado. Los metadatos de preparación están en `CITATION.cff` y `.zenodo.json`. [Repositorio](https://github.com/tono88/neurofuzzyTraffic).
+Para referenciarla, cite el DOI de la versión 1.0.2. Los metadatos de citación están en `CITATION.cff` y `.zenodo.json`. [Repositorio](https://github.com/tono88/neurofuzzyTraffic).
 
 ## Paquete MLP de la versión 1.0.1
 
@@ -17,6 +17,6 @@ Para referenciarla, cite el repositorio y el commit de GitHub consultado. Los me
 
 El DOI de versión identifica el ZIP archivado del paquete MLP 1.0.1. Su ficha contiene un enlace a la documentación actualizada en GitHub.
 
-## Archivo de una nueva versión
+## Identificadores de las versiones
 
-El depósito del código LSTM requiere crear una nueva versión vinculada al registro existente. Zenodo asigna un DOI específico a esa versión. El DOI de concepto agrupa las versiones del proyecto. [Gestión de versiones en Zenodo](https://help.zenodo.org/docs/deposit/manage-versions/).
+La versión LSTM 1.0.2 tiene su DOI propio y forma parte del mismo conjunto de versiones que la 1.0.1. El DOI de concepto agrupa las versiones del proyecto. [Gestión de versiones en Zenodo](https://help.zenodo.org/docs/deposit/manage-versions/).

@@ -7,4 +7,4 @@
 - Los parámetros neuronales del archivo importado se describen en la metodología.
 - El paquete MLP se consulta en la [versión v1.0.1 archivada](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.1).
 
-Esta revisión está pendiente de archivo como nueva versión en Zenodo. La revisión del código y los documentos se realizó mediante inspección de archivos.
+DOI de esta versión [10.5281/zenodo.24141655](https://doi.org/10.5281/zenodo.24141655). La revisión del código y los documentos se realizó mediante inspección de archivos.

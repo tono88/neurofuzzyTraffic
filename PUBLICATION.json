@@ -1,8 +1,7 @@
 {
   "version": "1.0.2",
-  "status": "unpublished_revision",
   "repository_url": "https://github.com/tono88/neurofuzzyTraffic",
-  "version_doi": null,
+  "version_doi": "10.5281/zenodo.24141655",
   "source_commit": "57bf0d2629eca652f0238d751742a9a61d35b634",
   "source_repository": "https://github.com/tono88/SUMONeuroFun",
   "sumo_version_confirmed_by_author": "1.15.0",
@@ -15,5 +14,10 @@
     "zenodo_record_url": "https://zenodo.org/records/23907073",
     "version_doi": "10.5281/zenodo.23907073",
     "concept_doi": "10.5281/zenodo.23907072"
-  }
+  },
+  "zenodo_record_url": "https://zenodo.org/records/24141655",
+  "concept_doi": "10.5281/zenodo.23907072",
+  "git_tag": "v1.0.2",
+  "version_code_url": "https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.2",
+  "publication_date": "2026-11-11"
 }

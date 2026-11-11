@@ -1,9 +1,11 @@
 cff-version: 1.2.0
-message: "Para esta revisión LSTM, indique el commit de GitHub consultado. El archivo del paquete MLP 1.0.1 se identifica en docs/PUBLICACION_DOI.md."
+message: "Para esta revisión LSTM, cite el DOI de la versión 1.0.2. El paquete MLP 1.0.1 se identifica en docs/PUBLICACION_DOI.md."
 type: software
 title: "Bologna SUMO: código LSTM de la investigación"
 version: 1.0.2
-url: "https://github.com/tono88/neurofuzzyTraffic"
+date-released: 2026-11-11
+doi: "10.5281/zenodo.24141655"
+url: "https://zenodo.org/records/24141655"
 repository-code: "https://github.com/tono88/neurofuzzyTraffic"
 authors:
   - family-names: "Sandoval Acevedo"
@@ -14,7 +16,7 @@ abstract: >-
   Contiene una LSTM de 50 unidades y los insumos del escenario. La revisión
   configura 100 corridas de simulación y genera una semilla pseudoaleatoria
   por corrida. SUMO 1.15.0 con TraCI es el entorno de investigación confirmado
-  por el autor. Esta revisión está pendiente de archivo en Zenodo.
+  por el autor.
 keywords:
   - SUMO
   - Bologna

@@ -15,7 +15,7 @@
       "type": "Supervisor"
     }
   ],
-  "description": "<p>Código histórico de control semafórico para el escenario Bologna joined. Contiene una LSTM de 50 unidades y los insumos del escenario.</p><p>La revisión configura 100 corridas de simulación y genera una semilla pseudoaleatoria por corrida. SUMO 1.15.0 con TraCI es el entorno de investigación confirmado por el autor. Los 1.200 s, según su aclaración, corresponden a una corrida optimista sin NeuroFuzzy.</p><p>La metodología describe las dimensiones de entrada, las instancias neuronales y el calendario de entrenamiento del código. La revisión está pendiente de archivo como nueva versión en Zenodo. El código y la documentación actualizados están en <a href=\"https://github.com/tono88/neurofuzzyTraffic\">neurofuzzyTraffic</a>.</p><p>El código propio se distribuye bajo MIT y el escenario conserva sus licencias y avisos de origen.</p>",
+  "description": "<p>Versión 1.0.2 del código LSTM de control semafórico para el escenario Bologna joined. Incluye una LSTM de 50 unidades con activación ReLU y salida escalar. El código histórico contiene una observación de entrada por ejemplo y comparte la instancia neuronal entre intersecciones y grupos rojo y verde.</p><p>Esta revisión configura 100 corridas de simulación. Cada corrida obtiene una semilla pseudoaleatoria entre 1 y 10.000. La copia importada solicitaba tres corridas y esta revisión ajusta ese número a 100 según la confirmación del autor. La metodología describe el entrenamiento con Adam, MSE, cinco épocas por llamada y lotes de 20, en un bloque habilitado en múltiplos de 3.000 pasos.</p><p>SUMO 1.15.0 con TraCI es el entorno de la investigación confirmado por el autor. Los 1.200 s se refieren a una corrida optimista sin NeuroFuzzy. El controlador LSTM distribuido avanza hasta el criterio de vehículos esperados. La duración efectiva del paso de las corridas originales y su correspondencia con cada tabla de resultados siguen pendientes de corroborar.</p><p>El archivo incluye código, configuración, insumos del escenario y documentación. La revisión se preparó mediante inspección de archivos y no aporta nuevas simulaciones ni resultados. El paquete MLP anterior corresponde a la versión 1.0.1.</p><p>El código de esta versión está identificado mediante la <a href=\"https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.2\">etiqueta v1.0.2</a>. El código propio se distribuye bajo MIT y el escenario conserva sus licencias y avisos de origen.</p>",
   "keywords": [
     "SUMO",
     "Bologna",
@@ -31,5 +31,7 @@
       "identifier": "https://github.com/tono88/neurofuzzyTraffic",
       "relation": "isSupplementTo"
     }
-  ]
+  ],
+  "doi": "10.5281/zenodo.24141655",
+  "publication_date": "2026-11-11"
 }
