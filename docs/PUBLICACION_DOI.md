@@ -1,31 +1,22 @@
 # Publicación y citación
 
-## Versión 1.0.1 archivada
+## Código LSTM de la rama main
 
-| Recurso | Enlace |
+La revisión del software **1.0.2** contiene el código LSTM histórico y sus insumos, con el número de corridas ajustado a 100 según la confirmación del autor. El entorno de la investigación confirmado es SUMO 1.15.0 con TraCI. Esta revisión está pendiente de archivo como nueva versión en Zenodo.
+
+Para referenciarla, cite el repositorio y el commit de GitHub consultado. Los metadatos de preparación están en `CITATION.cff` y `.zenodo.json`. [Repositorio](https://github.com/tono88/neurofuzzyTraffic).
+
+## Paquete MLP de la versión 1.0.1
+
+| Recurso archivado | Enlace |
 |---|---|
-| Repositorio | https://github.com/tono88/neurofuzzyTraffic |
-| Versión | https://github.com/tono88/neurofuzzyTraffic/releases/tag/v1.0.1 |
-| Registro Zenodo | https://zenodo.org/records/23907073 |
-| DOI de versión | https://doi.org/10.5281/zenodo.23907073 |
-| DOI de concepto | https://doi.org/10.5281/zenodo.23907072 |
+| Código | [Etiqueta v1.0.1](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.1) |
+| Publicación GitHub | [Release v1.0.1](https://github.com/tono88/neurofuzzyTraffic/releases/tag/v1.0.1) |
+| DOI de versión | [10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073) |
+| DOI de concepto | [10.5281/zenodo.23907072](https://doi.org/10.5281/zenodo.23907072) |
 
-## Referencia
+El DOI de versión identifica el ZIP archivado del paquete MLP 1.0.1. Su ficha contiene un enlace a la documentación actualizada en GitHub.
 
-La ficha de Zenodo proporciona la cita de la [versión 1.0.1](https://doi.org/10.5281/zenodo.23907073).
+## Archivo de una nueva versión
 
-El DOI de versión identifica el paquete con el ejecutor MLP. Para referenciar el código LSTM de 50 unidades de la tesis, indique el archivo y el commit público de la importación. El DOI de concepto agrupa las versiones del software. [Código LSTM importado](https://github.com/tono88/neurofuzzyTraffic/blob/17e8069ffcf8ab13fcf6b67957764f34445cc46e/research/sumoneurofun/main.py).
-
-## Revisión 1.0.2 para un nuevo depósito
-
-La revisión incorpora el código histórico con LSTM y la [nota de procedencia](PROCEDENCIA_TESIS.md). Sus metadatos están en `CITATION.cff` y `.zenodo.json`. Para archivar sus archivos se usa **Nueva versión** sobre el registro de Zenodo. Zenodo asigna un DOI propio a esa versión y conserva el DOI de la 1.0.1. [Gestión de versiones en Zenodo](https://help.zenodo.org/docs/deposit/manage-versions/).
-
-## Obtener el código
-
-```bash
-git clone https://github.com/tono88/neurofuzzyTraffic.git
-cd neurofuzzyTraffic
-git checkout v1.0.1
-```
-
-Las instrucciones de instalación y reproducción del paquete MLP están en su [guía](GUIA_PAQUETE_MLP.md). El [README del repositorio](../README.md) identifica el punto de entrada de cada implementación.
+El depósito del código LSTM requiere crear una nueva versión vinculada al registro existente. Zenodo asigna un DOI específico a esa versión. El DOI de concepto agrupa las versiones del proyecto. [Gestión de versiones en Zenodo](https://help.zenodo.org/docs/deposit/manage-versions/).

@@ -1,56 +1,31 @@
-# Metodología de simulación y control
+# Metodología del código histórico LSTM
 
-Esta metodología describe el ejecutor del paquete publicado en la versión 1.0.1. La [nota de procedencia](PROCEDENCIA_TESIS.md) compara ese ejecutor con el `main.py` histórico de la investigación y con el protocolo declarado en la tesis.
+El archivo de referencia es [`research/sumoneurofun/main.py`](../research/sumoneurofun/main.py). La revisión 1.0.2 configura 100 corridas de simulación según la indicación del autor. La procedencia del archivo y el alcance de esa modificación se detallan en la [nota de procedencia](PROCEDENCIA_TESIS.md).
 
-## Diseño experimental
+## Corridas y semillas
 
-El paquete MLP utiliza el escenario Bologna `joined` de SUMO y compara tres condiciones de control: **Estandar**, **Fuzzy** y **NeuroFuzzy**. Su ejecutor reutiliza las semillas de su configuración de referencia entre los modos para una comparación pareada. En el código de la investigación, la semilla se genera de forma pseudoaleatoria al iniciar cada corrida. No se dispone de una lista de esas semillas históricas.
+`NUM_SIMULATIONS = 100` determina cuántas veces se inicia SUMO. En cada iteración, el código obtiene una semilla mediante `random.randint(1, 10000)` y la entrega con `--seed`. Los sorteos pueden repetir valores. El código histórico carece de una lista prefijada y de un emparejamiento entre estrategias. Cada llamada a `run()` construye el modelo neuronal de esa corrida.
 
-El ejecutor principal es `run_experiment.py`. Los controladores Fuzzy y NeuroFuzzy se implementan en `src/controllers.py`; `original/main.py` contiene su implementación de referencia. El modo Estandar utiliza los planes semafóricos definidos en los archivos del escenario.
+## Arquitectura y aprendizaje
 
-## Densidad y control difuso
+El modelo contiene `LSTM(50, activation='relu')` y `Dense(1)`. La entrada tiene forma de una observación por una característica. `create_sequences` forma los ejemplos a partir de las observaciones de cola acumuladas para las aproximaciones rojas y verdes.
 
-La densidad se calcula como `100 × número de vehículos / longitud del carril en metros`, en vehículos por 100 m. El universo difuso comprende valores entre 0 y 100.
+Las listas `modelsR` y `modelsV` contienen referencias a una misma instancia de `model`. El optimizador es Adam y la pérdida es MSE. Cada llamada a `fit` solicita cinco épocas y lotes de 20 ejemplos. El bloque de entrenamiento y predicción se habilita en los múltiplos de 3.000 pasos, por intersección y grupo. La ejecución satisfactoria de ese bloque y la correspondencia con las tablas de la tesis requieren los registros de las corridas originales.
 
-El sistema estático utiliza los conjuntos trapezoidales bajo `[0,0,30,50]`, medio `[30,50,70,100]` y alto `[70,100,100,100]`. La salida utiliza los conjuntos triangulares actual `[0,0,0.5]` y siguiente `[0.5,1,1]`. Las reglas son: bajo → actual; medio O alto → siguiente. Una salida mayor o igual a 0.5 solicita el cambio de fase.
+La partición entre entrenamiento, validación y prueba de los resultados publicados sigue pendiente de documentar. El ajuste LSTM distribuido utiliza las secuencias acumuladas y sus llamadas a `fit` conservan los parámetros del código importado. La definición del modelo emplea Adam y MSE. Las referencias de la tesis a L2, L-BFGS-B o a predictores independientes requieren identificar el procedimiento o archivo correspondiente.
 
-## Modelo NeuroFuzzy del paquete publicado
+## Control e insumos del escenario
 
-Cada semáforo tiene una MLP independiente con entrada de 50 observaciones, una capa Dense de 32 unidades ReLU y una salida lineal. Se utiliza Adam con pérdida MSE. El buffer contiene hasta 200 observaciones y el entrenamiento comienza al superar 100 observaciones, con dos épocas y tamaño de lote 1.
+El código calcula la cola a partir de los vehículos detenidos de cada carril y organiza las observaciones según el estado rojo o verde. El bloque de control difuso se comprueba cada 300 pasos de simulación.
 
-Cada 300 pasos se predice la densidad media del semáforo. Con `p=clip(pred,0,100)`, las funciones de pertenencia se actualizan como bajo `[0,0,p/2,p]`, medio `[p/4,3p/4,p,100]` y alto `[p/2,100,100,100]`.
+`run.sumocfg` referencia la red, la demanda, los autobuses, las paradas, los detectores, los tipos vehiculares y los programas semafóricos `joined*.xml`. Los archivos contienen programas semafóricos estáticos. El programa de referencia efectivamente utilizado para producir las tablas de comparación queda pendiente de vincular con las salidas originales.
 
-El callback `EarlyStopping(patience=1)` utiliza el monitor predeterminado `val_loss`. El entrenamiento se realiza con los datos disponibles del buffer y dos épocas. Las predicciones se registran a partir del paso 300.
+## Tiempo y condición de fin
 
-## Ejecución y registro
+El autor confirma SUMO 1.15.0 con TraCI. El bucle LSTM avanza mientras `getMinExpectedNumber() > 0`. Los 1.200 s, según la aclaración del autor, corresponden a una corrida optimista sin NeuroFuzzy. La duración efectiva del paso debe recuperarse del entorno de las corridas originales. [Relación entre pasos y tiempo](PROCEDENCIA_TESIS.md#pasos-y-tiempo-simulado).
 
-| Elemento | Implementación |
-|---|---|
-| Semillas | El ejecutor MLP aplica la misma semilla a SUMO, Python, NumPy y TensorFlow dentro de cada corrida. |
-| Procesos | Un proceso independiente por modo y semilla. |
-| Entorno neuronal | CPU, un hilo TensorFlow y operaciones deterministas. |
-| Identificación de carriles | NeuroFuzzy conserva la primera aparición de cada carril controlado; Fuzzy recorre la lista de TraCI. |
-| Control de fase | Fase actual capturada antes de recorrer los carriles y número de fases de la primera lógica devuelta por TraCI. |
-| Observaciones | Escritura incremental en `details.csv`. |
-| Predicciones iniciales | Campo vacío hasta la primera predicción neuronal. |
-| Umbrales | Columnas `med_lb` y `med_ub`. |
-| Salidas SUMO | Configuración, detectores, registros y resultados separados por modo y semilla. |
-| Trazabilidad | Manifiestos con parámetros, versiones, huellas SHA-256 y estado de ejecución. |
+## Salidas conservadas por el programa
 
-## Métricas e interpretación
+El arranque solicita `colaControl{seed}.xml` para las colas y `tripinfo.xml` para los viajes. La configuración también declara salidas de registro y detectores. `lanes_con_semaforos.csv` se genera durante la ejecución.
 
-Las métricas de regresión se calculan con pares finitos de observación y predicción. RMSE y MAE se expresan en vehículos por 100 m. Para MAPE, el denominador se reemplaza por 1 cuando el valor real es cero. R² se registra como `null` cuando hay menos de dos pares válidos o la varianza real es nula.
-
-En Fuzzy se registra `y_pred=y_true`: sus errores de regresión y su matriz de confusión describen esa identidad de registro. En NeuroFuzzy se compara la última predicción de densidad media del semáforo con la densidad actual de cada carril, manteniendo la predicción entre actualizaciones de 300 pasos.
-
-La clasificación utiliza Bajo cuando `valor < med_lb`, Medio cuando `med_lb <= valor < med_ub`, y Alto para los valores restantes. Los umbrales de NeuroFuzzy se actualizan con la predicción. La matriz de confusión organiza las filas por clase observada y las columnas por clase predicha, en orden Bajo/Medio/Alto.
-
-La unidad experimental para la comparación de movilidad es la **corrida por semilla**. El resumen de viajes calcula los promedios sobre llegadas y registra los vehículos pendientes en el manifiesto. Las ejecuciones de prueba con `--max-steps` se identifican mediante el estado `truncated`.
-
-## Repetibilidad y entorno
-
-SUMO controla su generador pseudoaleatorio mediante `--seed`. Python, NumPy y TensorFlow utilizan la misma semilla de cada corrida. El ejecutor fija `PYTHONHASHSEED` antes de iniciar el proceso y activa `tf.config.experimental.enable_op_determinism`.
-
-La repetición se realiza con las versiones de software definidas en `requirements.txt` y SUMO 1.16.0. Cada manifiesto registra el entorno concreto. Los comentarios de los XML pueden incluir fecha, rutas y duración real de ejecución; las comparaciones de repetibilidad consideran los datos numéricos y los archivos de métricas.
-
-Referencias: [aleatoriedad en SUMO](https://sumo.dlr.de/docs/Simulation/Randomness.html) y [determinismo en TensorFlow](https://www.tensorflow.org/api_docs/python/tf/config/experimental/enable_op_determinism).
+Algunos nombres de salida se reutilizan entre corridas, incluido `tripinfo.xml`. Una semilla repetida también reutiliza el nombre de su archivo de colas. Este comportamiento proviene del código histórico y debe considerarse al identificar qué archivos respaldan cada tabla de resultados.

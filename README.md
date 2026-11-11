@@ -1,43 +1,51 @@
-# Bologna SUMO — código de la tesis y paquete de simulación
+# Bologna SUMO — código LSTM de la investigación
 
 **Autor** Estuardo Antonio Sandoval Acevedo · [ORCID 0009-0005-2146-6699](https://orcid.org/0009-0005-2146-6699).
 
 **Dirección de tesis** David Escuin · [ORCID 0000-0003-2062-8092](https://orcid.org/0000-0003-2062-8092).
 
-## Qué código corresponde a la tesis
+La rama `main` contiene el código histórico LSTM del escenario Bologna `joined`, con el número de corridas configurado en **100** según la confirmación del autor. El entorno de la investigación confirmado por el autor es **SUMO 1.15.0 con TraCI**. La revisión del software es **1.0.2**, pendiente de archivo como nueva versión en Zenodo.
 
-| Implementación | Punto de entrada y arquitectura |
+## Código y parámetros
+
+| Elemento | Implementación disponible |
 |---|---|
-| **LSTM descrita en la tesis** | [`research/sumoneurofun/main.py`](research/sumoneurofun/main.py#L417-L425) define una **LSTM de 50 unidades** seguida de una salida escalar. Procesa un paso temporal de una característica de longitud de cola. |
-| **MLP del paquete 1.0.1 archivado en Zenodo** | [`run_experiment.py`](run_experiment.py) usa [`src/controllers.py`](src/controllers.py#L79-L89) para el modo NeuroFuzzy. Define una **MLP de 32 unidades ReLU**, con **50 observaciones de densidad media** como entrada y una salida escalar. |
+| Punto de entrada | [`research/sumoneurofun/main.py`](research/sumoneurofun/main.py) y [`run.sumocfg`](research/sumoneurofun/run.sumocfg), con los insumos del escenario en la misma carpeta. |
+| Arquitectura | Una capa LSTM de **50 unidades** con activación ReLU y una capa densa de salida de una unidad. |
+| Entrada | Una observación de longitud de cola por ejemplo, con `num_time_steps = 1` y `num_features = 1`. |
+| Instancias neuronales | Las listas de aproximaciones rojas y verdes referencian una misma instancia del modelo. |
+| Entrenamiento | Adam, pérdida MSE, cinco épocas por llamada y tamaño de lote 20. El bloque se habilita en los múltiplos de 3.000 pasos de simulación. |
+| Corridas | **100 corridas de simulación**, definidas por `NUM_SIMULATIONS`. La barra de progreso utiliza ese mismo valor. |
+| Semillas | Cada corrida genera su semilla pseudoaleatoria mediante `random.randint(1, 10000)` y la pasa a SUMO. No se dispone de la lista de las semillas de las corridas originales. |
+| Fin de cada corrida | El bucle continúa mientras SUMO informa vehículos esperados. |
 
-El autor identificó el `main.py` de SUMONeuroFun como el código de la investigación. La copia pública conserva ese archivo y sus insumos tal como estaban en el commit de origen. El número 50 designa las unidades recurrentes en la LSTM y la longitud de la ventana de entrada en la MLP. [Nota de procedencia y comparación técnica](docs/PROCEDENCIA_TESIS.md).
+Las 100 corridas corresponden al número de simulaciones. La ventana de entrada y las épocas de entrenamiento son parámetros distintos que se muestran en la tabla. La copia importada solicitaba tres corridas. La revisión 1.0.2 ajusta ese número a 100. [Procedencia y cambios](docs/PROCEDENCIA_TESIS.md).
 
-### Consultar el código LSTM
+## Entorno y uso
 
-El archivo [`main.py`](research/sumoneurofun/main.py) abre `run.sumocfg` mediante una ruta relativa. La [carpeta del código de la tesis](research/sumoneurofun/) reúne ambos archivos y los insumos del escenario Bologna `joined`. El programa genera una semilla pseudoaleatoria por corrida y la pasa a SUMO con `--seed`. No se dispone de una lista de las semillas de las corridas de la investigación.
+El autor confirma SUMO **1.15.0** para la investigación. El programa obtiene `sumo` y TraCI de la instalación disponible mediante `SUMO_HOME` y el entorno de ejecución. Las dependencias Python directas se enumeran en [`requirements.txt`](requirements.txt), con sus versiones históricas pendientes de identificar. También se requiere Tkinter para la interfaz de progreso.
 
-La tesis declara **SUMO 1.15 con TraCI** y **1.200 s por escenario**. La configuración importada carece de un tiempo final explícito. Un registro de la rama fuente documenta una corrida distinta en duración, de **5.159 s** con **SUMO 1.16.0**, cuyo vínculo con las tablas originales está sin confirmar. La reproducción exacta requiere identificar el protocolo efectivo de las corridas que produjeron esas tablas. [Comparación del protocolo declarado con la evidencia disponible](docs/PROCEDENCIA_TESIS.md#versión-de-sumo-y-horizonte).
+El punto de entrada requiere como directorio de trabajo la carpeta que contiene `run.sumocfg`. La invocación documentada desde la raíz del repositorio es:
 
-El código programa el primer bloque de entrenamiento de la LSTM para el **paso de simulación 3.000**. Para compararlo con el horizonte de **1.200 s**, hay que convertir los pasos a tiempo simulado usando la duración efectiva de cada paso. [Pasos de simulación y segundos simulados](docs/PROCEDENCIA_TESIS.md#pasos-de-simulación-y-segundos-simulados).
+```text
+cd research/sumoneurofun
+python main.py
+```
 
-### Consultar el paquete MLP
+El escenario, las rutas de salida y la interfaz se describen en la [metodología del código histórico](docs/METODOLOGIA.md).
 
-El paquete 1.0.1 compara los modos Estandar, Fuzzy y NeuroFuzzy. Sus requisitos, comandos, salidas y validación están en la [guía del ejecutor MLP](docs/GUIA_PAQUETE_MLP.md).
+## Horizonte y tiempo simulado
 
-## Citación y archivo
+El autor aclara que los **1.200 s** corresponden a una corrida optimista **sin el control NeuroFuzzy**. La configuración LSTM distribuida continúa hasta el criterio de fin de vehículos esperados. Su horizonte se interpreta con ese criterio.
 
-La versión **1.0.1** está archivada y publicada en [Zenodo](https://zenodo.org/records/23907073). Su DOI de versión es **[10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073)**. Los metadatos de citación están en `CITATION.cff` y `.zenodo.json`.
+El contador `steps` aumenta una vez por llamada a `traci.simulationStep()`. Su conversión a segundos requiere conocer la duración efectiva de cada paso. Ese valor de las corridas originales sigue pendiente de corroborar. [Pasos y protocolo](docs/PROCEDENCIA_TESIS.md#pasos-y-tiempo-simulado).
 
-Para citar el código LSTM, indique el archivo y el commit de GitHub consultado. Para citar el paquete MLP 1.0.1, utilice su DOI de versión. El DOI de concepto [10.5281/zenodo.23907072](https://doi.org/10.5281/zenodo.23907072) agrupa las versiones del software. Los enlaces del repositorio y del depósito están registrados en [PUBLICATION.json](PUBLICATION.json).
+## Versiones y citación
 
-## Licencias y procedencia
+El paquete MLP con su configuración de comparación entre modos se consulta en la [versión archivada v1.0.1](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.1) y en su [DOI 10.5281/zenodo.23907073](https://doi.org/10.5281/zenodo.23907073).
 
-El código del proyecto y su documentación se distribuyen bajo [MIT](LICENSE). Los archivos de terceros mantienen sus condiciones: escenario SUMO bajo los términos de su distribución de origen y `original/randomTrips.py` con su aviso **EPL-2.0 OR GPL-2.0-or-later**. Se incluyen los textos oficiales disponibles en `licenses/` y el detalle en [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). La licencia MIT no cambia los derechos de los componentes de terceros ni los de las dependencias instaladas por separado.
+Para citar el código LSTM de esta revisión, indique el commit de GitHub consultado. El estado del archivo y los identificadores de cada versión figuran en [`PUBLICATION.json`](PUBLICATION.json) y en la [guía de publicación](docs/PUBLICACION_DOI.md).
 
-## Referencias del escenario y del entorno
+## Licencias
 
-- Bieker, L., Krajzewicz, D., Morra, A., Michelacci, C. y Cartolano, F. (2014). *Traffic simulation for all: a real world traffic scenario from the city of Bologna*. SUMO2014, pp. 19–26. [Registro DLR y escenario](https://sumo.dlr.de/docs/Data/Scenarios.html#bologna).
-- [SUMO: control de aleatoriedad mediante `--seed`](https://sumo.dlr.de/docs/Simulation/Randomness.html).
-- [TensorFlow: determinismo de operaciones](https://www.tensorflow.org/api_docs/python/tf/config/experimental/enable_op_determinism).
-- [Zenodo: habilitar el repositorio](https://help.zenodo.org/docs/github/enable-repository/) y [archivar una release](https://help.zenodo.org/docs/github/archive-software/github-upload/).
+El código del proyecto y la documentación se distribuyen bajo [MIT](LICENSE). Los insumos Bologna conservan su licencia y sus avisos de procedencia. [Componentes de terceros](THIRD_PARTY_NOTICES.md).

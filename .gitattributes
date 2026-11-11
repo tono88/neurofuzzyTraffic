@@ -2,9 +2,5 @@
 *.md text eol=lf
 *.cff text eol=lf
 *.json text eol=lf
-*.yml text eol=lf
-config/*.txt text eol=lf
-# Preserve the archive and original scenario bytes for SHA-256 verification.
-original/** -text
-scenarios/** -text
+# Preserve the imported source and scenario bytes.
 research/sumoneurofun/** -text

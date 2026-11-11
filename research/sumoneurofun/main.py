@@ -13,6 +13,9 @@ import threading
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
 import csv
+
+NUM_SIMULATIONS = 100
+
 tf.data.experimental.enable_debug_mode()
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
@@ -555,7 +558,7 @@ def start_progressbar():
         sumoBinary = checkBinary('sumo')
     else:
         sumoBinary = checkBinary('sumo-gui')
-    for i in range(3):
+    for i in range(NUM_SIMULATIONS):
         seed = random.randint(1, 10000)  # Genera una semilla aleatoria entre 1 y 10000
         queue_output_file = f"colaControl{seed}.xml"  # Modifica el nombre del archivo de salida para incluir la semilla
 
@@ -575,7 +578,7 @@ if __name__ == "__main__":
 
     progressbar = ttk.Progressbar(window, length=300, mode='determinate')
     progressbar.pack(pady=10)
-    progressbar['maximum'] = 3
+    progressbar['maximum'] = NUM_SIMULATIONS
     progressbar['value'] = 0
 
     # Correr la simulación en un hilo separado para no bloquear la interfaz gráfica

@@ -1,35 +1,33 @@
-# Procedencia del código de la tesis
+# Procedencia del código LSTM
 
-La LSTM de 50 unidades que describe la tesis se encuentra en `research/sumoneurofun/main.py` de la rama pública `main`. La MLP de 32 unidades corresponde al ejecutor que ya se había archivado en la versión 1.0.1. Son dos implementaciones de NeuroFuzzy con entradas distintas. [Definición de la LSTM importada](https://github.com/tono88/neurofuzzyTraffic/blob/17e8069ffcf8ab13fcf6b67957764f34445cc46e/research/sumoneurofun/main.py#L417-L425) · [Definición de la MLP en la versión 1.0.1](https://github.com/tono88/neurofuzzyTraffic/blob/0a4a4f66e46749a48dca086132efc54f819e5620/src/controllers.py#L79-L89).
+El autor identifica el `main.py` de `tono88/SUMONeuroFun` como el código de la investigación. La importación se realizó desde el commit `57bf0d2629eca652f0238d751742a9a61d35b634`. El archivo y sus ocho insumos se copiaron en `research/sumoneurofun/`. [Origen](https://github.com/tono88/SUMONeuroFun/tree/57bf0d2629eca652f0238d751742a9a61d35b634) · [Importación pública original](https://github.com/tono88/neurofuzzyTraffic/tree/17e8069ffcf8ab13fcf6b67957764f34445cc46e/research/sumoneurofun).
 
-El autor identifica `main.py` de la rama `main` de `tono88/SUMONeuroFun` como el código usado en la investigación. Se importaron los bytes del commit `57bf0d2629eca652f0238d751742a9a61d35b634`, concretamente [`main.py`](../research/sumoneurofun/main.py), [`run.sumocfg`](../research/sumoneurofun/run.sumocfg) y los siete archivos `joined*.xml` que referencia la configuración. La copia conserva las rutas relativas y la interfaz Tkinter. El archivo `lanes_con_semaforos.csv` es una salida del programa. [Commit de origen en el repositorio privado](https://github.com/tono88/SUMONeuroFun/commit/57bf0d2629eca652f0238d751742a9a61d35b634).
+## Confirmaciones del autor y revisión del código
 
-| Aspecto | Código de `SUMONeuroFun` importado | Ejecutor del paquete archivado 1.0.1 |
-|---|---|---|
-| Arquitectura | `LSTM(50, activation='relu')` seguida de `Dense(1)`. Las listas de rojo y verde referencian la misma instancia de red para todas las intersecciones. | MLP independiente por semáforo, con `Dense(32, activation='relu')` y `Dense(1)` lineal. |
-| Entrada | Longitud de cola agrupada según el estado rojo o verde. Cada ejemplo de entrada contiene una observación de una característica (`num_time_steps = 1`, `num_features = 1`). | Ventana de 50 observaciones de densidad media por semáforo, medida en vehículos por 100 m. |
-| Actualización | El código comprueba el control difuso cada 300 pasos de simulación y habilita el bloque de entrenamiento y predicción en los múltiplos de 3.000 pasos. El bloque usa cinco épocas y lotes de 20. | Entrenamiento en línea con dos épocas y lotes de una observación. El código intenta predecir cada 300 pasos de simulación. |
-| Semillas | El programa solicita tres corridas y genera una semilla pseudoaleatoria por corrida con `random.randint(1, 10000)`. La pasa a SUMO con `--seed`. No se dispone de una lista de las semillas de la investigación. | El ejecutor utiliza semillas de su propia configuración de referencia para comparar los modos Estandar, Fuzzy y NeuroFuzzy. |
-| Fin de corrida | El bucle avanza mientras SUMO informa vehículos esperados. La configuración carece de un tiempo final explícito. | El mismo criterio por defecto. El ejecutor admite un límite opcional en pasos mediante `--max-steps`. |
+El 11 de noviembre de 2026 el autor confirmó **SUMO 1.15.0** como versión de la investigación y aclaró que las **100 iteraciones** se refieren a **100 corridas de simulación**. También precisó que los **1.200 s** describían una corrida optimista sin el control NeuroFuzzy.
 
-La tesis describe predictores independientes por intersección y grupo de aproximación y también documenta una ventana de diez observaciones. En el archivo histórico, `modelsR` y `modelsV` referencian una misma instancia de `model`, y `num_time_steps = 1` determina cuántas observaciones recibe la red por ejemplo. [Construcción del modelo y de las secuencias](../research/sumoneurofun/main.py#L392-L429).
+| Elemento | Evidencia y estado |
+|---|---|
+| Número de corridas | La copia importada usaba `range(3)` y una barra de progreso con máximo 3. Esta revisión introduce `NUM_SIMULATIONS = 100` para ambos usos. |
+| SUMO | La versión 1.15.0 procede de la confirmación del autor. El código localiza el ejecutable en el entorno. Las versiones Python y dependencias de las corridas originales siguen pendientes de corroborar. |
+| Horizonte de la LSTM | La configuración distribuida termina conforme al criterio de vehículos esperados. La aclaración sobre 1.200 s se refiere a la corrida optimista sin NeuroFuzzy. |
+| Arquitectura | LSTM de 50 unidades y salida escalar. `modelsR` y `modelsV` comparten la misma instancia neuronal. |
+| Entrada y aprendizaje | `num_time_steps = 1`, `num_features = 1`, Adam, MSE, cinco épocas y lote 20 por llamada a `fit`. |
+| Semillas | Sorteo pseudoaleatorio al iniciar cada corrida. No se dispone de la lista de semillas históricas. |
+| Resultados | La vinculación de cada tabla de la tesis con las salidas y la configuración efectivas sigue pendiente de corroborar. |
 
-El punto de entrada del paquete archivado es [`run_experiment.py`](../run_experiment.py). Importa `src/controllers.py`, cuya MLP deriva de [`original/main.py`](../original/main.py). La definición de la LSTM, su configuración SUMO y sus insumos se consultan en [`research/sumoneurofun/`](../research/sumoneurofun/). El DOI de la versión 1.0.1 identifica el ZIP con el ejecutor MLP y la ficha enlaza al repositorio público actualizado. [Registro de la versión 1.0.1](https://doi.org/10.5281/zenodo.23907073).
+La modificación del número de corridas responde a la aclaración del autor. La revisión se documenta como una adaptación de la copia importada. Las dimensiones de entrada y la construcción del modelo conservan la implementación del archivo de origen. [Código actual](../research/sumoneurofun/main.py).
 
-## Versión de SUMO y horizonte
+## Pasos y tiempo simulado
 
-| Parámetro | Protocolo declarado en la tesis (§ 4.4.3) | Código y configuración importados | Registro disponible en la rama fuente |
-|---|---|---|---|
-| Horizonte | **1.200 s por escenario** | `run.sumocfg` carece de un tiempo final explícito. El bucle de `main.py` avanza mientras SUMO informa vehículos esperados. | Una corrida terminó a los **5.159 s de tiempo simulado**. |
-| Versión de SUMO | **v1.15 con TraCI** | `main.py` localiza el ejecutable en el entorno y la configuración carece de una versión fijada. | Esa corrida se inició con **SUMO 1.16.0**. |
-| Frecuencia de decisión | **Cada 300 s** | El código comprueba el control difuso cada **300 pasos de simulación**. | El registro carece de información sobre esta frecuencia. |
+`steps` aumenta en uno después de cada llamada a `traci.simulationStep()` sin argumentos. El control difuso se comprueba cada 300 pasos y el bloque de entrenamiento y predicción se habilita en los múltiplos de 3.000 pasos.
 
-La denominación oficial de la versión declarada en la tesis es **1.15.0**. El registro documenta el entorno y la duración de una corrida concreta. Su vínculo con las tablas originales está sin confirmar. La validación del paquete MLP archivado es evidencia de otro alcance y documenta SUMO **1.16.0** para ese paquete. [Historial de SUMO 1.15.0](https://sumo.dlr.de/docs/ChangeLog/Changes_in_2022_releases.html#version_1150_08112022) · [Registro de origen](https://github.com/tono88/SUMONeuroFun/blob/57bf0d2629eca652f0238d751742a9a61d35b634/sumo_log.txt#L8-L15) · [Validación del paquete MLP](../validation/REPORT.md).
+El tiempo simulado transcurrido es el número de pasos multiplicado por la duración de cada paso. `run.sumocfg` y el comando de arranque dejan `step-length` sin fijar. SUMO utiliza un segundo por paso por defecto. La duración efectiva del paso en las corridas originales permanece pendiente de corroborar. [Opciones de tiempo de SUMO](https://sumo.dlr.de/docs/sumo.html#time) · [Llamada de TraCI en SUMO 1.15.0](https://github.com/eclipse-sumo/sumo/blob/v1_15_0/tools/traci/main.py#L185-L194).
 
-### Pasos de simulación y segundos simulados
+La aclaración del autor sitúa los 1.200 s en una corrida optimista sin NeuroFuzzy. Por tanto, esa cifra tiene un alcance distinto del criterio de fin del controlador LSTM distribuido.
 
-En el código importado, `steps` aumenta en uno después de cada llamada a `traci.simulationStep()` sin argumentos. La llamada avanza un paso de SUMO. El bloque de entrenamiento y predicción se habilita por primera vez cuando ese contador llega a **3.000 pasos de simulación**. La duración en segundos de cada paso depende de `step-length`. El `run.sumocfg` importado y el comando de arranque del programa dejan ese parámetro sin fijar. SUMO usa **1 s por paso** por defecto. [Contador de pasos](../research/sumoneurofun/main.py#L449-L451) · [Condición de entrenamiento](../research/sumoneurofun/main.py#L486-L499) · [Comando de arranque](../research/sumoneurofun/main.py#L550-L564) · [Opciones de tiempo de SUMO](https://sumo.dlr.de/docs/sumo.html#time) · [TraCI en SUMO 1.15.0](https://github.com/eclipse-sumo/sumo/blob/v1_15_0/tools/traci/main.py#L185-L194).
+## Paquete archivado y registros de otras ejecuciones
 
-El tiempo simulado transcurrido al llegar al paso 3.000 es **3.000 × duración del paso**. Con el valor por defecto, el bloque se habilitaría tras **3.000 s** y quedaría fuera de un corte a **1.200 s**. Con un paso de **0,1 s**, se habilitaría tras **300 s** si la corrida alcanza ese paso. Son conversiones para dos configuraciones posibles. La duración efectiva del paso y la ejecución del bloque en las corridas originales siguen sin corroborarse.
+El paquete MLP se conserva en la etiqueta `v1.0.1` y en el DOI de esa versión. Su ejecutor, configuración de semillas, dependencias y validación se consultan dentro de ese archivo. [Código v1.0.1](https://github.com/tono88/neurofuzzyTraffic/tree/v1.0.1) · [Zenodo v1.0.1](https://doi.org/10.5281/zenodo.23907073).
 
-Estas diferencias, por sí solas, son insuficientes para juzgar la validez de los resultados de la tesis. Antes de afirmar una reproducción exacta, hace falta vincular las tablas con los archivos de salida originales e identificar el protocolo efectivo de esas corridas, incluida la revisión del código, la versión de SUMO, la duración de cada paso, la configuración y el horizonte usado para calcular las métricas. La revisión se limitó a inspeccionar los archivos disponibles.
+El repositorio fuente contiene registros de otras ejecuciones. Cada registro conserva sus propios datos de versión y duración. Para atribuirlos a un resultado concreto de la tesis hace falta vincularlos con las salidas de esa corrida. La declaración de SUMO 1.15.0 recoge la confirmación del autor. [Registro disponible en la fuente histórica](https://github.com/tono88/SUMONeuroFun/blob/57bf0d2629eca652f0238d751742a9a61d35b634/sumo_log.txt).

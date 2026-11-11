@@ -1,7 +1,7 @@
 cff-version: 1.2.0
-message: "Si utiliza esta revisión, indique el commit consultado. Para el paquete 1.0.1, consulte docs/PUBLICACION_DOI.md."
+message: "Para esta revisión LSTM, indique el commit de GitHub consultado. El archivo del paquete MLP 1.0.1 se identifica en docs/PUBLICACION_DOI.md."
 type: software
-title: "Bologna SUMO: código y escenario de control semafórico"
+title: "Bologna SUMO: código LSTM de la investigación"
 version: 1.0.2
 url: "https://github.com/tono88/neurofuzzyTraffic"
 repository-code: "https://github.com/tono88/neurofuzzyTraffic"
@@ -10,20 +10,17 @@ authors:
     given-names: "Estuardo Antonio"
     orcid: "https://orcid.org/0009-0005-2146-6699"
 abstract: >-
-  Código y escenario Bologna joined de SUMO para simulaciones de control
-  semafórico. Incluye controladores Fuzzy y NeuroFuzzy
-  con MLP por semáforo, una línea base Estandar, ejecución pareada, métricas,
-  verificación de integridad y registro del entorno por corrida. Esta revisión
-  incorpora el código histórico con LSTM de 50 unidades y sus insumos. Ese
-  código genera una semilla pseudoaleatoria por corrida.
+  Código histórico de control semafórico para el escenario Bologna joined.
+  Contiene una LSTM de 50 unidades y los insumos del escenario. La revisión
+  configura 100 corridas de simulación y genera una semilla pseudoaleatoria
+  por corrida. SUMO 1.15.0 con TraCI es el entorno de investigación confirmado
+  por el autor. Esta revisión está pendiente de archivo en Zenodo.
 keywords:
   - SUMO
   - Bologna
-  - reproducibilidad
   - control semafórico
   - lógica difusa
-  - redes neuronales
-  - semillas
+  - LSTM
 license:
   - MIT
   - EPL-2.0
